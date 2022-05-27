@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Hard Helmet Detection</title>
+</head>
+<body>
+<div style="height: 100vh; width: 100%; background-color: #2F4858;">
+        <div class="row align-items-center d-flex justify-content-center">
+            <h3 class="mt-5" style="color: aliceblue;">Hard Helmet Detection</h3>
+        </div>
+        <div class="row align-items-center d-flex justify-content-center"  style="height: auto; width: auto;">
+            <div style="height: auto; width: auto; background-color: aliceblue;">
+                <img id="detectedVideo" src="" style="height: 480px; width: 640px;">
+            </div>
+        </div>
+        <div class="row align-items-center d-flex justify-content-center" style="margin-top: 5vh;" >
+            <button type="button" onclick="startStopFunction('/video_feed')" style="width: 200px; margin-right: 20px;" class="btn btn-success">Start</button>
+            <button type="button" onclick="window.location.href='/';" style="width: 200px;" class="btn btn-danger">Stop</button>
+        </div>
+</div>
+
+<script>
+    function startStopFunction(req) {
+        document.getElementById("detectedVideo").src = req
+    }
+</script>
+
+<script src="{{url_for('static', filename='jquery-3.6.0.min.js')}}"></script>
+<script>
+    function ajaxSendData() {
+    $.ajax({
+        url: "http://" + window.location.host + "/stopRequest",
+        type: "GET", 
+        success: function (response) {
+            if (response.text) {
+                alert("Durduruldu")
+            } else if (response.error) {
+                alert("Hata oluştu")
+            } 
+                },
+    });
+}
+
+(function ($) {
+    Drupal.behaviors.page_load_progress = {
+      attach: function (context, settings) {
+        window.onbeforeunload = close_event_function;
+        function close_event_function() {
+          //Enter your code before run window close;
+          return null;
+        }        
+      }
+    };
+  }(jQuery));
+</script>
+</body>
+</html>
